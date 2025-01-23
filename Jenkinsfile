@@ -68,5 +68,17 @@ pipeline {
             }
         }
         }
+
+        stage('Docker Push Image') {
+            steps {
+             script {
+                  withDockerRegistry(credentialsId: 'docker-cred', toolName: 'docker') {
+                  sh "docker push santhosh7mp/shopping-cart:dev"  
+
+                }
+                 
+            }
+        }
+        }
     }
 }
