@@ -80,5 +80,17 @@ pipeline {
             }
         }
         }
+
+        stage('Docker Push Image') {
+            steps {
+             script {
+                  withDockerRegistry(credentialsId: 'docker-cred', toolName: 'docker') {
+                  sh "docker run -d --name ekar-application -p 8070:8070 santhosh7mp/shopping-cart"  
+
+                }
+                 
+            }
+        }
+        }
     }
 }
