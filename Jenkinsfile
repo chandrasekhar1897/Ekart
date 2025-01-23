@@ -46,5 +46,27 @@ pipeline {
             }
         }
 
+        stage('Build Docker Image') {
+            steps {
+             script {
+                  withDockerRegistry(credentialsId: 'docker-cred', toolName: 'docker') {
+                  sh "docker build -t shopping-cart:dev -f docker/Dockerfile ."  
+
+                }
+                 
+            }
+        }
+        }
+           stage('Docker Image Tag') {
+            steps {
+             script {
+                  withDockerRegistry(credentialsId: 'docker-cred', toolName: 'docker') {
+                  sh "docker tag shopping-cart:dev santhosh7mp/shopping-cart:dev"  
+
+                }
+                 
+            }
+        }
+        }
     }
 }
